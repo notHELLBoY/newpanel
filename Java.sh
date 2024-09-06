@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# تابع برای تولید یک عدد رندوم در محدوده مشخص
 getRandomInRange() {
   echo $(( RANDOM % ($2 - $1 + 1) + $1 ))
 }
 
-# تولید آدرس IPv4
 generateIPv4() {
   ipv4Ranges=(
     "45.137.68."
@@ -25,14 +23,11 @@ generateIPv4() {
     "45.138.172."
     "45.138.204."
   )
-  
   selectedRange=${ipv4Ranges[$(getRandomInRange 0 ${#ipv4Ranges[@]})]}
-  fourthOctet=$(getRandomInRange 1 255) # جلوگیری از انتخاب 0 برای اکتت چهارم
-  
+  fourthOctet=$(getRandomInRange 1 255)
   echo "${selectedRange}${fourthOctet}"
 }
 
-# تولید آدرس IPv6
 generateIPv6() {
   hexCharacters="0123456789abcdef"
   getRandomHexPart() {
@@ -42,15 +37,12 @@ generateIPv6() {
     done
     echo $part
   }
-
-  part1=$(getRandomHexPart 2)  # تولید 2 کاراکتر برای "**"
-  part2=$(getRandomHexPart 4)  # تولید 4 کاراکتر برای "****"
-  part3=$(getRandomHexPart 4)  # تولید 4 کاراکتر برای دومین "****"
-  
+  part1=$(getRandomHexPart 2)
+  part2=$(getRandomHexPart 4)
+  part3=$(getRandomHexPart 4)
   echo "2803:f800:${part1}::${part2}:${part3}"
 }
 
-# تابع برای نمایش آدرس IPv4
 displayIPv4() {
   ip=$(generateIPv4)
   echo "IPv4 Address: $ip"
@@ -59,7 +51,6 @@ displayIPv4() {
   echo "8.8.8.8 (Google Public)"
 }
 
-# تابع برای نمایش آدرس IPv6
 displayIPv6() {
   ip1=$(generateIPv6)
   ip2=$(generateIPv6)
@@ -68,6 +59,5 @@ displayIPv6() {
   echo "Made by: HELLBoY_deal"
 }
 
-# تولید آدرس‌ها
-displayIPv4  # تولید آدرس IPv4
-displayIPv6  # تولید آدرس IPv6
+displayIPv4
+displayIPv6
